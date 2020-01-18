@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font: 13px Helvetica, Arial;
+      border-radius: 5px;
+      background-color: #000;
+      border-color: #000;
+      color: white;
+    }
+
+    form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
+
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
+
+    #messages li {
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <p
+    style="background-color: rgb(1, 55, 103); padding-left: 0; padding-right: 0; height: 24px; color: brown; text-align: center; font-size: 22px;">
+    Real Time Chat App</p>
+  <ul id="msg" style="background-color: #000;"></ul>
+  <form action="" style="background-color: #000;">
+    <input type="text" id="girilenMsg" autocomplete="off" />
+    <button
+      style="color: white; font: bold; background-color: rgb(36, 54, 1); font-size: 18px; padding-left: 0.6%;">Gönder</button>
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      $('form').submit(function (e) {
+        e.preventDefault(); // prevents page reloading
+        socket.emit('mesaj', $('#girilenMsg').val());
+        $('#girilenMsg').val('');
+        return false;
+      });
+      socket.on('mesaj', function (msg) {
+        $('#msg').append($('<li style = "background-color: #000">').text(msg));
+
+      });
+    });
+  </script>
+</body>
+
+</html>
