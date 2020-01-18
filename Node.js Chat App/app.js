@@ -9,16 +9,16 @@ app.get('/', function (req, res) {
 
 
 io.on('connection', function (socket) {
-    console.log("Kullanici Giriş Yaptı.");
+    console.log("User Connect.");
 
-    socket.on('mesaj', function (msg) {
-        msg = "Kullanici : " + msg;
-        io.emit('mesaj', msg);
+    socket.on('ioMsg', function (msg) {
+        msg = "User : " + msg;
+        io.emit('ioMsg', msg);
 
     });
 
     socket.on("disconnect", function () {
-        console.log("Kullanici Ayrıldı");
+        console.log("User Disconnect.");
     })
 
 });

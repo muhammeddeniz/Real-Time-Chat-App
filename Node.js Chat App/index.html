@@ -40,7 +40,7 @@
       padding: 10px;
     }
 
-    #messages li {
+    #msg li {
       padding: 5px 10px;
     }
   </style>
@@ -52,7 +52,7 @@
     Real Time Chat App</p>
   <ul id="msg" style="background-color: #000;"></ul>
   <form action="" style="background-color: #000;">
-    <input type="text" id="girilenMsg" autocomplete="off" />
+    <input type="text" id="inputMsg" autocomplete="off" />
     <button
       style="color: white; font: bold; background-color: rgb(36, 54, 1); font-size: 18px; padding-left: 0.6%;">Gönder</button>
   </form>
@@ -64,11 +64,11 @@
       var socket = io();
       $('form').submit(function (e) {
         e.preventDefault(); // prevents page reloading
-        socket.emit('mesaj', $('#girilenMsg').val());
-        $('#girilenMsg').val('');
+        socket.emit('ioMsg', $('#inputMsg').val());
+        $('#inputMsg').val('');
         return false;
       });
-      socket.on('mesaj', function (msg) {
+      socket.on('ioMsg', function (msg) {
         $('#msg').append($('<li style = "background-color: #000">').text(msg));
 
       });
